@@ -1,0 +1,34 @@
+#include "RF24.h"
+#include "printf.h"
+
+#define TEAM_NUM 13
+
+#define ARDUINOCE 9
+#define ARDUINOCSN 10
+
+#define TEENSYCE 9 //THIS MAY BE INCORRECT
+#define TEENSYCSN 10 //THESE MAY BE INCORRECT
+
+void setup() {
+  // put your setup code here, to run once:
+ RF24 transmitter = RF24(ARDUINOCE, ARDUINOCSN);
+ RF24 receiver = RF24(TEENSYCE, TEENSYCSN);
+ transmitter.begin();
+ receiver.begin();
+ transmitter.setChannel(TEAM_NUM);
+ receiver.setChannel(TEAM_NUM);
+ transmitter.setPALevel(RF24_PA_MIN);
+ receiver.setPALevel(RF24_PA_MIN);
+ const uint8_t writingPipeAddress = 0xc2c2c2;
+ const uint8_t readingPipeAddress = 0xe7e7e7;
+ //TODO MO
+// transmitter.openWritingPipe(&writingPipeAddress);
+// receiver.openReadingPipe(&writingPipeAddress);
+// transmitter.openReadingPipe(&readingPipeAddress);
+ receiver.openWritingPipe(&readingPipeAddress);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
